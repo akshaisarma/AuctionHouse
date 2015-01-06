@@ -23,17 +23,17 @@ the client instantiates a tester class and uses the methods in the remote
 interface to authenticate his sesssion (either by registering or by loggin in)
 and query the server to do the appropriate actions allowed for him.
 
-	Entities
-	--------
-	I have four entities. One representing the items currently up for auction.
-	One for all the bids (including on items that are no longer in auction).
-	Another for storing all expired auctions and whether the winner was notified
-	or not. And the last entity representing the users of the auction.
+Entities
+--------
+I have four entities. One representing the items currently up for auction.
+One for all the bids (including on items that are no longer in auction).
+Another for storing all expired auctions and whether the winner was notified
+or not. And the last entity representing the users of the auction.
 
-	Beans
-	-----
-	There is one bean that simply handles the one major task of the system -
-	performing user tasks.
+Beans
+-----
+There is one bean that simply handles the one major task of the system -
+performing user tasks.
 
 Requirements Satisfaction
 --------------------------
