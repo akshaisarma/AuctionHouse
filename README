@@ -1,0 +1,61 @@
+Implementation of AuctionHouseExtended
+
+The project usse the recommended Glassfish/EJB framework and is a EJB Project.
+The directory includes a EAR Deployment Descriptor package, the server and
+client modules. Import these into Eclipse/Glassfish and simply run it. The
+default Derby DB is used with the default connection pool. However, a JMS
+Connection Pool called alarmConnectionFactory and a JMS Destination
+jms/alarmNotifier Topic needs to be created.
+
+Eclipse can be obtained from:
+http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/indigor
+The Glassfish plugin for Eclipse can be accessed through Eclipse's package
+management system.
+
+Implementation details
+-----------------------
+The project uses a text based interface. A stateless session bean and entities
+represent the project on the server. The stateless session bean implements a
+remote interface used by the client. In order to completely seperate the client
+and server code, the client even queries the server for the tasks he/she can do.
+This is necessary in order to implement the administrator and user role. To run
+the client instantiates a tester class and uses the methods in the remote
+interface to authenticate his sesssion (either by registering or by loggin in)
+and query the server to do the appropriate actions allowed for him.
+
+	Entities
+	--------
+	I have four entities. One representing the items currently up for auction.
+	One for all the bids (including on items that are no longer in auction).
+	Another for storing all expired auctions and whether the winner was notified
+	or not. And the last entity representing the users of the auction.
+
+	Beans
+	-----
+	There is one bean that simply handles the one major task of the system -
+	performing user tasks.
+
+Requirements Satisfaction
+--------------------------
+The basic requirement of a client/server and a backend database is satisfied.
+
+The user in the administrator role can log in and create items for auction, upon
+which timers for the objects are created. Only the admin is provided this option.
+
+Other users (including the admin) can also log in and look at and bid for the items.
+
+Upon timer expiration, the last bidder is sent an asynchronous message informing
+him of his win if he is logged in or is stored in the database to inform him on
+his return if he is not logged in. The inventory is correspondingly reduced.
+Instead of interrupting a user when he is doing something, there is a concept of
+mailbox for every user (basically just a string). The mailbox is held by the user
+so the messages are still delivered asynchronously to the client but the client
+has the option to look at the message when he desires whether it be there or not.
+This option was chosen because this would be my preferred notification mechanism.
+
+Transactions are used by injecting required Transaction Attributes.
+
+Upon making bids, the changes are immediately stored to the database to avoid
+losing data upon crashes.
+
+Pooling of resources is automatically done by Eclipse/Glassfish.
