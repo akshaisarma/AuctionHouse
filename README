@@ -1,6 +1,6 @@
 Implementation of AuctionHouseExtended
 
-The project usse the recommended Glassfish/EJB framework and is a EJB Project.
+The project uses the recommended Glassfish/EJB framework and is a EJB Project.
 The directory includes a EAR Deployment Descriptor package, the server and
 client modules. Import these into Eclipse/Glassfish and simply run it. The
 default Derby DB is used with the default connection pool. However, a JMS
